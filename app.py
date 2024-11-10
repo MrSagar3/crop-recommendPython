@@ -216,6 +216,7 @@ def update(id):
 
 # for the delete
 @app.route('/delete/<int:id>', methods=['POST'])
+@login_required
 def delete(id):
     if current_user.id != 1:  # Ensure only the admin can delete
         flash("Unauthorized access.")
