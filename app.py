@@ -12,7 +12,8 @@ import pandas as pd
 app = Flask(__name__)
 
 # Add database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+# /app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://users_zi2s_user:7FVib7au4FkRfqwmSQo40MtqN1fZwiFG@dpg-cso7u82j1k6c73bcsdog-a/users_zi2s'
 # Secret key
 app.config['SECRET_KEY'] = "mysecretkey"
 # Configuring the database
