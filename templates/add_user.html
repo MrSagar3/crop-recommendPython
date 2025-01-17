@@ -19,10 +19,18 @@
           {{ form.username(class_="form-control", id="username", placeholder="Enter your Username") }}
       </div>
         
-        <div class="mb-3">
-            <label for="email" class="form-label">{{ form.email.label }}</label>
-            {{ form.email(class_="form-control", id="email", placeholder="Enter your email") }}
-        </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">{{ form.email.label }}</label>
+        {{ form.email(class_="form-control", id="email", placeholder="Enter your email") }}
+        {% if form.email.errors %}
+            <div class="text-danger">
+                {% for error in form.email.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    
 
         <div class="mb-3">
           <label for="password" class="form-label">{{ form.password_hash.label }}</label>

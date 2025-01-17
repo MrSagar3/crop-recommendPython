@@ -10,9 +10,9 @@ class LoginForm(FlaskForm):
 
 # Create a form class
 class UserForm(FlaskForm):
-    name = StringField("Name", validators=[DataRequired()])
-    username=StringField("Username", validators=[DataRequired()])
-    email = StringField("Email", validators=[DataRequired()])
+    name = StringField("Name", validators=[DataRequired(),Length(min=2,max=25)])
+    username=StringField("Username", validators=[DataRequired(),Length(min=2,max=25)])
+    email = StringField("Email", validators=[DataRequired(),Email()])
     password_hash=PasswordField('Password',validators=[DataRequired(),EqualTo('password_hash2',message="Password Must Match")])
     password_hash2=PasswordField('Confirm Password', validators=[DataRequired()])
     submit = SubmitField("Submit")

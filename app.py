@@ -165,25 +165,30 @@ with app.app_context():
 def add_user():
     name = None   
     form = UserForm()
-    # Validating the user entered name and email are not present in the database
+
     if form.validate_on_submit():
+        # Check if the email already exists
         user = Users.query.filter_by(email=form.email.data).first()
-        if user is None:
-            #Hash the password
-            hashed_pw = generate_password_hash(form.password_hash.data,method= "pbkdf2:sha256")
-            user = Users(username=form.username.data,name=form.name.data, email=form.email.data,password_hash=hashed_pw)
+        if user:
+            flash("Email already exists! Please use a different email.", "danger")
+        else:
+            # Hash the password
+            hashed_pw = generate_password_hash(form.password_hash.data, method="pbkdf2:sha256")
+            # Add the new user
+            user = Users(username=form.username.data, name=form.name.data, email=form.email.data, password_hash=hashed_pw)
             db.session.add(user)
             db.session.commit()
-
-        name = form.name.data
-        form.name.data = ''
-        form.username.data=''
-        form.email.data = ''
-        form.password_hash.data=''
-        form.password_hash2.data=''
-        flash("User Added Successfully!")
+            flash("User Added Successfully!", "success")
+            # Clear the form fields
+            form.name.data = ''
+            form.username.data = ''
+            form.email.data = ''
+            form.password_hash.data = ''
+            form.password_hash2.data = ''
+            name = form.name.data
 
     return render_template("add_user.html", form=form, name=name)
+
 
 #for updating the user
 @app.route('/update/<int:id>',methods=['GET','POST'])
